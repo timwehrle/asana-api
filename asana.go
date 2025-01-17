@@ -60,7 +60,7 @@ func NewClient(httpClient *http.Client) *Client {
 	}
 }
 
-// request is an API requests
+// request is an API request
 type request struct {
 	Data    any      `json:"data"`
 	Options *Options `json:"options,omitempty"`
