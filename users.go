@@ -86,7 +86,8 @@ func (w *Workspace) AllUsers(client *Client, options ...*Options) ([]*User, erro
 
 // UserQuery represents a required query for the Favorite call
 type UserQuery struct {
-	// Required: The resource type of favorites to be returned
+	// The resource type of favorites to be returned
+	// Defaults to Project
 	ResourceType string `url:"resource_type,omitempty"`
 	// Required: The workspace in which to get favorites.
 	Workspace string `url:"workspace,omitempty"`
