@@ -48,7 +48,6 @@ type Client struct {
 
 	Verbose        []bool
 	DefaultOptions Options
-	spinner        *Spinner
 }
 
 // NewClient instantiates a new Asana client with the given HTTP client and
@@ -105,11 +104,6 @@ func mergeQuery(q url.Values, request any) error {
 }
 
 func (c *Client) get(path string, data, result any, opts ...*Options) (*NextPage, error) {
-	if c.spinner != nil {
-		c.spinner.Start()
-		defer c.spinner.Stop()
-	}
-
 	requestID := xid.New()
 
 	// Prepare options
@@ -224,11 +218,6 @@ func (c *Client) delete(path string, opts ...*Options) error {
 }
 
 func (c *Client) do(method, path string, data, result interface{}, opts ...*Options) error {
-	if c.spinner != nil {
-		c.spinner.Start()
-		defer c.spinner.Stop()
-	}
-
 	requestID := xid.New()
 
 	// Prepare options
@@ -302,11 +291,6 @@ func escapeQuotes(s string) string {
 // --------
 
 func (c *Client) postMultipart(path string, result interface{}, field string, r io.ReadCloser, filename string, contentType string, opts ...*Options) error {
-	if c.spinner != nil {
-		c.spinner.Start()
-		defer c.spinner.Stop()
-	}
-
 	// Make request
 	requestID := xid.New()
 	options, err := c.mergeOptions(opts...)
@@ -424,12 +408,4 @@ func IsTrue(value *bool) bool {
 
 func Bool(value bool) *bool {
 	return &value
-}
-
-func (c *Client) SetSpinner(message string) {
-	c.spinner = NewSpinner(message)
-}
-
-func (c *Client) ClearSpinner() {
-	c.spinner = nil
 }
